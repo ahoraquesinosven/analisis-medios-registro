@@ -1,7 +1,7 @@
-from urllib.parse import urlparse, urlunparse, quote, unquote, parse_qs
 import tldextract
+from urllib.parse import urlparse, urlunparse, quote, unquote, parse_qs
 
-# Parse a URL
+# TESTING Parse a URL
 url = "https://otrasvocesmdz.com.ar/brutal-intento-de-femicidio-en-el-palomar-apunalo-a-su-ex-pareja-y-huyo/"
 parsed_url = urlparse(url)
 print("Netloc:", parsed_url.netloc)
@@ -9,18 +9,14 @@ print("Netloc:", parsed_url.netloc)
 extracted_info = tldextract.extract(parsed_url.netloc)
 print("Extracted info: ",extracted_info)
 
-
-print("Scheme:", parsed_url.scheme)
-print("Netloc:", parsed_url.netloc) # lo que necesito
-print("Path:", parsed_url.path)
-# print("Params:", parsed_url.params)
-# print("Query:", parsed_url.query)
-# print("Fragment:", parsed_url.fragment)
-
-def get_url_netloc(url):
+#Obtener domain
+def get_url_domain(url):
     parsed_url = urlparse(url)
-    return parsed_url.netloc
+    extracted_info = tldextract.extract(parsed_url.netloc)
+    return extracted_info.domain
 
+# TODO abrir CSV y por cada row, obtener mes y año,  provincia, category y domain
+# TODO group by domain
 
 
 
