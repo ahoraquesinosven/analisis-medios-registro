@@ -1,0 +1,7 @@
+version: "3"
+services:
+  dev:
+    image: observatorio/analisis-medios-femicidios
+    build: .
+    volumes:
+      - .:/usr/src/app
