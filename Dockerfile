@@ -1,6 +1,5 @@
-FROM python:3.9
+FROM python:3.12
 
 WORKDIR /usr/src/app
 
-RUN pip install tldextract
-RUN apt-get clean && apt-get update && apt-get install -y locales locales-all
+RUN pip install tldextract pandas
