@@ -31,29 +31,20 @@ def get_fields_for_analysis(csv):
     return df.loc[:, ["Fecha_del_Caso","Provincia","Clasificacion","link1"]]
 
 cases_2023_to_2025 = get_fields_for_analysis('./cases/20250513_2023_2024_2025_casos.csv')
-medio = get_url_domain(cases_2023_to_2025['link1'])
-print("MEDIO = ", medio)
-#cases_2023_to_2025["medio"] = 
-# https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html 
-#print(cases_2023_to_2025 )
+# medio = get_url_domain(cases_2023_to_2025['link1'])
+# print("MEDIO = ", medio)
+cases_2023_to_2025["medio"] = cases_2023_to_2025.apply(lambda row: get_url_domain(row.link1), axis='columns')
+cases_2023_to_2025.to_csv('fullMedios_2023_2025.csv')
+print(cases_2023_to_2025.head())
+# TODO https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html 
  
 
-# TODO abrir CSV y por cada row, obtener mes y año,  provincia, category y domain
-# TODO group by domain
+#  group by domain y provincia
+byprov = cases_2023_to_2025[["Provincia","medio"]].groupby("medio").count()
+print(byprov.head())
 
+# group by domain y categoria
+cat = cases_2023_to_2025[["Clasificacion","medio"]].groupby("medio").count()
+print(cat.head())
 
-
-
-
-# # Encode a query string
-# query_string = "data with spaces and & characters"
-# encoded_query = quote(query_string)
-# print("Encoded query:", encoded_query)
-
-# # Decode a query string
-# decoded_query = unquote(encoded_query)
-# print("Decoded query:", decoded_query)
-
-# # Parse query parameters
-# query_params = parse_qs(parsed_url.query)
-# print("Query parameters:", query_params)
+ 
